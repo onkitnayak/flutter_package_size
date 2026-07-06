@@ -1,5 +1,4 @@
 import 'package:args/command_runner.dart';
-import 'package:flutter_package_size/flutter_package_size.dart';
 import 'package:flutter_package_size/src/core/constants.dart';
 
 import '../commands/analyze_command.dart';
