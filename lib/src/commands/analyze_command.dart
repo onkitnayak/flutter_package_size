@@ -78,14 +78,12 @@ class AnalyzeCommand extends Command<void> {
     final top = int.parse(argResults!['top'] as String);
 
     // Package size breakdown
-    print('Package'.padRight(45) + 'Size'.padRight(15) + 'Percent');
+    print('${'Package'.padRight(45)}${'Size'.padRight(15)}Percent');
     print('-' * 72);
 
     for (final package in packages.take(top)) {
       print(
-        package.packageName.padRight(45) +
-            formatSize(package.bytes).padRight(15) +
-            '${package.percentage.toStringAsFixed(2)}%',
+        '${package.packageName.padRight(45)}${formatSize(package.bytes).padRight(15)}${package.percentage.toStringAsFixed(2)}%',
       );
     }
 
