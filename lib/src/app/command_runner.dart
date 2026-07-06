@@ -11,7 +11,7 @@ class CommandRunner {
         break;
 
       case '--version':
-        print('0.1.0');
+        print('0.1.1');
         break;
 
       case '--help':

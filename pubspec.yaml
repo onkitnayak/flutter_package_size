@@ -1,6 +1,6 @@
 name: flutter_package_size
 description: Analyze Flutter APK/AAB size and generate package-wise reports.
-version: 0.1.0
+version: 0.1.1+1
 # repository: https://github.com/my_org/my_repo
 
 homepage: https://github.com/onkitnayak/flutter_package_size
