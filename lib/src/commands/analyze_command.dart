@@ -1,5 +1,6 @@
 import 'package:args/command_runner.dart';
 import 'package:flutter_package_size/src/data/datasources/analysis_finder.dart';
+
 import '../data/datasources/build_runner.dart';
 import '../data/datasources/flutter_cli.dart';
 import '../data/datasources/json_parser.dart';
@@ -29,6 +30,18 @@ class AnalyzeCommand extends Command<void> {
         help: 'Show top N largest packages.',
         defaultsTo: '10',
         valueHelp: 'number',
+      )
+      ..addOption(
+        'target',
+        help: 'Flutter entry point.',
+        defaultsTo: 'lib/main.dart',
+        valueHelp: 'path',
+      )
+      ..addOption('flavor', help: 'Flutter build flavor.', valueHelp: 'name')
+      ..addMultiOption(
+        'dart-define',
+        help: 'Pass Dart define values.',
+        valueHelp: 'KEY=VALUE',
       );
   }
 
@@ -53,9 +66,17 @@ class AnalyzeCommand extends Command<void> {
     print('✅ Flutter SDK found');
     print('');
 
+    final target = argResults!['target'] as String;
+    final flavor = argResults!['flavor'] as String?;
+    final dartDefines = argResults!['dart-define'] as List<String>;
+
     final builder = BuildRunner();
 
-    await builder.buildApk();
+    await builder.buildApk(
+      target: target,
+      flavor: flavor,
+      dartDefines: dartDefines,
+    );
 
     final analysisFile = AnalysisFinder().findLatestAnalysisFile();
 
@@ -77,17 +98,17 @@ class AnalyzeCommand extends Command<void> {
 
     final top = int.parse(argResults!['top'] as String);
 
-    // Package size breakdown
     print('${'Package'.padRight(45)}${'Size'.padRight(15)}Percent');
     print('-' * 72);
 
     for (final package in packages.take(top)) {
       print(
-        '${package.packageName.padRight(45)}${formatSize(package.bytes).padRight(15)}${package.percentage.toStringAsFixed(2)}%',
+        '${package.packageName.padRight(45)}'
+        '${formatSize(package.bytes).padRight(15)}'
+        '${package.percentage.toStringAsFixed(2)}%',
       );
     }
 
-    // Summary
     print('');
     print('Summary');
     print('-' * 72);
@@ -111,12 +132,10 @@ class AnalyzeCommand extends Command<void> {
       );
     }
 
-    // Report flags
     final json = argResults!['json'] as bool;
     final csv = argResults!['csv'] as bool;
     final html = argResults!['html'] as bool;
 
-    // Generate JSON
     if (json) {
       JsonReporter().generate(
         packages: packages,
@@ -124,7 +143,6 @@ class AnalyzeCommand extends Command<void> {
       );
     }
 
-    // Generate CSV
     if (csv) {
       CsvReporter().generate(
         packages: packages,
@@ -132,7 +150,6 @@ class AnalyzeCommand extends Command<void> {
       );
     }
 
-    // Generate HTML
     if (html) {
       HtmlReporter().generate(
         packages: packages,
@@ -140,7 +157,6 @@ class AnalyzeCommand extends Command<void> {
       );
     }
 
-    // Generated reports
     if (json || csv || html) {
       print('');
       print('Generated Reports');

@@ -3,20 +3,37 @@ import 'dart:convert';
 import 'dart:io';
 
 class BuildRunner {
-  Future<void> buildApk() async {
+  Future<void> buildApk({
+    required String target,
+    String? flavor,
+    List<String> dartDefines = const [],
+  }) async {
     print('📦 Building APK...');
     print('');
 
-    final process = await Process.start('flutter', [
+    final args = <String>[
       'build',
       'apk',
+      '--release',
       '--target-platform=android-arm64',
       '--analyze-size',
-    ], runInShell: true);
+      '--target',
+      target,
+    ];
 
-    process.stdout.transform(utf8.decoder).listen((data) => stdout.write(data));
+    if (flavor != null && flavor.isNotEmpty) {
+      args.addAll(['--flavor', flavor]);
+    }
 
-    process.stderr.transform(utf8.decoder).listen((data) => stderr.write(data));
+    for (final define in dartDefines) {
+      args.add('--dart-define=$define');
+    }
+
+    final process = await Process.start('flutter', args, runInShell: true);
+
+    process.stdout.transform(utf8.decoder).listen(stdout.write);
+
+    process.stderr.transform(utf8.decoder).listen(stderr.write);
 
     final exitCode = await process.exitCode;
 

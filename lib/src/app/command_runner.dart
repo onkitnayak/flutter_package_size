@@ -1,3 +1,5 @@
+import 'package:flutter_package_size/src/core/constants.dart';
+
 class CommandRunner {
   void run(List<String> arguments) {
     if (arguments.isEmpty) {
@@ -11,7 +13,7 @@ class CommandRunner {
         break;
 
       case '--version':
-        print('0.1.1');
+        print(packageVersion);
         break;
 
       case '--help':

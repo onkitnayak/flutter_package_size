@@ -1,6 +1,7 @@
-## 0.1.0
+## 0.2.0
 
-- Initial release.
-- Analyze Flutter package sizes.
-- Generate HTML, JSON and CSV reports.
-- CLI support.
+### Added
+- Support for custom Flutter entry points via `--target`
+- Support for Flutter build flavors via `--flavor`
+- Support for multiple `--dart-define` values
+- Improved compatibility with flavored Flutter projects
