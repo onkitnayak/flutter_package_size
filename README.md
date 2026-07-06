@@ -1,39 +1,245 @@
-<!-- 
-This README describes the package. If you publish this package to pub.dev,
-this README's contents appear on the landing page for your package.
+# flutter_package_size
 
-For information about how to write a good package README, see the guide for
-[writing package pages](https://dart.dev/tools/pub/writing-package-pages). 
+> 📦 Analyze the size contribution of each Dart package in your Flutter APK.
 
-For general information about developing packages, see the Dart guide for
-[creating packages](https://dart.dev/guides/libraries/create-packages)
-and the Flutter guide for
-[developing packages and plugins](https://flutter.dev/to/develop-packages). 
--->
+`flutter_package_size` is a lightweight CLI that automates Flutter's `--analyze-size` workflow and generates clean terminal output, JSON, CSV, and HTML reports.
 
-TODO: Put a short description of the package here that helps potential users
-know whether this package might be useful for them.
+---
 
-## Features
+## ✨ Features
 
-TODO: List what your package can do. Maybe include images, gifs, or videos.
+- 📦 Analyze package-level Dart AOT size
+- 📊 Percentage contribution of every package
+- 📈 Summary with total size and largest package
+- 📄 Export JSON report
+- 📑 Export CSV report
+- 🌐 Beautiful HTML report
+- 🤖 GitHub Actions ready
+- ⚡ Simple CLI
+- 🎯 Show Top N largest packages
 
-## Getting started
+---
 
-TODO: List prerequisites and provide or point to information on how to
-start using the package.
+# Screenshots
+
+## Terminal Output
+
+<p align="center">
+  <img src="assets/terminal_output.png" alt="Terminal Output" width="900"/>
+</p>
+
+---
+
+## HTML Report
+
+<p align="center">
+  <img src="assets/html_report.png" alt="HTML Report" width="900"/>
+</p>
+
+---
+
+## Installation
+
+Activate globally
+
+```bash
+dart pub global activate flutter_package_size
+```
+
+or add it as a dev dependency
+
+```yaml
+dev_dependencies:
+  flutter_package_size: latest
+```
+
+---
+
+## Requirements
+
+- Flutter SDK
+- Dart SDK
+- Android SDK
+- A Flutter project
+
+---
 
 ## Usage
 
-TODO: Include short and useful examples for package users. Add longer examples
-to `/example` folder. 
+Run inside the root of your Flutter project.
 
-```dart
-const like = 'sample';
+### Analyze package sizes
+
+```bash
+flutter_package_size analyze
 ```
 
-## Additional information
+### Show only Top 10 packages
 
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+```bash
+flutter_package_size analyze --top 10
+```
+
+### Generate JSON report
+
+```bash
+flutter_package_size analyze --json
+```
+
+### Generate CSV report
+
+```bash
+flutter_package_size analyze --csv
+```
+
+### Generate HTML report
+
+```bash
+flutter_package_size analyze --html
+```
+
+### Generate all reports
+
+```bash
+flutter_package_size analyze --json --csv --html
+```
+
+---
+
+## Sample Output
+
+```text
+Package                                      Size           Percent
+------------------------------------------------------------------------
+package:flutter                              1.35 MB        93.53%
+package:material_color_utilities             68.17 KB       4.62%
+package:vector_math                          21.82 KB       1.48%
+package:flutter_application                  4.01 KB        0.27%
+package:collection                           1.51 KB        0.10%
+
+Summary
+------------------------------------------------------------------------
+Total Packages : 5
+Total Size     : 1.44 MB
+Largest Package: package:flutter (1.35 MB)
+```
+
+---
+
+# Generated Reports
+
+### JSON
+
+```
+flutter_package_size_report.json
+```
+
+Contains structured package information suitable for automation, CI/CD, and custom tooling.
+
+---
+
+### CSV
+
+```
+flutter_package_size_report.csv
+```
+
+Can be opened in Excel, Google Sheets, or LibreOffice.
+
+---
+
+### HTML
+
+```
+flutter_package_size_report.html
+```
+
+A beautiful browser report containing:
+
+- Summary cards
+- Package breakdown
+- Percentage bars
+- Responsive layout
+
+---
+
+## Command Options
+
+| Option | Description |
+|---------|-------------|
+| `--json` | Generate JSON report |
+| `--csv` | Generate CSV report |
+| `--html` | Generate HTML report |
+| `--top` | Show Top N packages |
+
+---
+
+## GitHub Actions
+
+Automatically generate reports during CI.
+
+```yaml
+name: Flutter Package Size
+
+on:
+  pull_request:
+
+jobs:
+  analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - run: flutter pub get
+
+      - run: dart run flutter_package_size:flutter_package_size analyze --json --csv --html
+```
+
+---
+
+## Why flutter_package_size?
+
+Flutter already provides `flutter build apk --analyze-size`, but the output is primarily intended for Flutter DevTools.
+
+`flutter_package_size` simplifies the process by:
+
+- Automatically building the APK
+- Locating the generated analysis JSON
+- Parsing Dart AOT package sizes
+- Calculating package percentages
+- Producing clean terminal output
+- Exporting JSON, CSV, and HTML reports
+- Integrating easily with GitHub Actions
+
+---
+
+## Roadmap
+
+- ✅ JSON export
+- ✅ CSV export
+- ✅ HTML report
+- 🔄 Markdown report
+- 🔄 Package comparison
+- 🔄 Searchable HTML report
+- 🔄 Dark mode
+- 🔄 GitHub PR comments
+- 🔄 Size budget enforcement (`--fail-above`)
+
+---
+
+## Contributing
+
+Contributions, feature requests, and bug reports are welcome.
+
+Feel free to open an issue or submit a pull request.
+
+---
+
+## License
+
+MIT License

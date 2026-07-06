@@ -1,3 +1,6 @@
-## 1.0.0
+## 0.1.0
 
-- Initial version.
+- Initial release.
+- Analyze Flutter package sizes.
+- Generate HTML, JSON and CSV reports.
+- CLI support.

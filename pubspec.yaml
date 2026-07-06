@@ -20,3 +20,8 @@ dependencies:
 dev_dependencies:
   lints: ^6.0.0
   test: ^1.25.6
+
+flutter:
+  assets:
+    - assets/terminal_output.png
+    - assets/html_report.png

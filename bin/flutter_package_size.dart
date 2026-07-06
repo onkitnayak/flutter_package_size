@@ -1,5 +1,9 @@
-import 'package:flutter_package_size/flutter_package_size.dart';
+import 'package:flutter_package_size/src/app/cli.dart';
 
-void main(List<String> arguments) {
-  FlutterPackageSize().run(arguments);
+// void main(List<String> arguments) {
+//   FlutterPackageSize().run(arguments);
+// }
+
+Future<void> main(List<String> arguments) async {
+  await Cli().run(arguments);
 }

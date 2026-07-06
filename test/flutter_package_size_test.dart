@@ -2,15 +2,9 @@ import 'package:flutter_package_size/flutter_package_size.dart';
 import 'package:test/test.dart';
 
 void main() {
-  group('A group of tests', () {
-    final awesome = Awesome();
+  test('FlutterPackageSize can be created', () {
+    final app = FlutterPackageSize();
 
-    setUp(() {
-      // Additional setup goes here.
-    });
-
-    test('First Test', () {
-      expect(awesome.isAwesome, isTrue);
-    });
+    expect(app, isNotNull);
   });
 }

@@ -1,0 +1,54 @@
+name: Flutter Package Size
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+  pull_request:
+
+  workflow_dispatch:
+
+jobs:
+  analyze:
+
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Get Dependencies
+        run: flutter pub get
+
+      - name: Analyze Package Size
+        run: |
+          dart run flutter_package_size:flutter_package_size analyze \
+            --json \
+            --csv \
+            --html
+
+      - name: Upload JSON Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-size-json
+          path: flutter_package_size_report.json
+
+      - name: Upload CSV Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-size-csv
+          path: flutter_package_size_report.csv
+
+      - name: Upload HTML Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: package-size-html
+          path: flutter_package_size_report.html
