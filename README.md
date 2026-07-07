@@ -367,6 +367,41 @@ flutter_package_size analyze --json --csv --html
 
 ---
 
+## 🍦  Using Flavors
+
+If your Flutter project uses build flavors or a custom entry point, pass the same arguments you would use with `flutter build`.
+
+### Example
+
+```bash
+flutter_package_size analyze \
+  --target lib/main_staging.dart \
+  --flavor staging
+```
+
+### With report generation
+
+```bash
+flutter_package_size analyze \
+  --target lib/main_staging.dart \
+  --flavor staging \
+  --html
+```
+
+### With Dart defines
+
+```bash
+flutter_package_size analyze \
+  --target lib/main_staging.dart \
+  --flavor staging \
+  --dart-define=ENV=staging \
+  --dart-define=API_URL=https://api.example.com
+```
+
+These options are forwarded directly to `flutter build apk`, making the CLI compatible with projects that use custom entry points, product flavors, and build-time configuration.
+
+---
+
 ## 📊 Sample Output
 
 ```text
