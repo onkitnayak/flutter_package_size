@@ -29,7 +29,17 @@ class BuildRunner {
       args.add('--dart-define=$define');
     }
 
-    final process = await Process.start('flutter', args, runInShell: true);
+    final flutterPath = (await Process.run('which', [
+      'flutter',
+    ])).stdout.toString().trim();
+
+    print('Flutter path: $flutterPath');
+    print('Running command:');
+    print('$flutterPath ${args.join(' ')}');
+    print('Working directory: ${Directory.current.path}');
+    print('');
+
+    final process = await Process.start('flutter', args);
 
     process.stdout.transform(utf8.decoder).listen(stdout.write);
 

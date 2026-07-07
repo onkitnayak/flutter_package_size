@@ -1,6 +1,6 @@
 # Changelog
 
-## 0.2.0+2
+## 0.3.0
 
 ### Added
 - Support for custom Flutter entry points via `--target`

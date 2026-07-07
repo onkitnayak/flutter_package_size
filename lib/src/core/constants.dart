@@ -1,3 +1,3 @@
 const packageName = "flutter_package_size";
 
-const packageVersion = "0.2.0";
+const packageVersion = "0.3.0";

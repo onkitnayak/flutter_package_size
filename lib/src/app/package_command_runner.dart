@@ -6,9 +6,7 @@ import '../commands/version_command.dart';
 
 class PackageCommandRunner extends CommandRunner<void> {
   PackageCommandRunner()
-      : super(
-          'flutter_package_size',
-          '''
+    : super('flutter_package_size', '''
 📦 Analyze Flutter package sizes and generate beautiful reports.
 
 Features:
@@ -26,8 +24,7 @@ Examples:
   flutter_package_size analyze --json --csv --html
   flutter_package_size version
   flutter_package_size --version
-''',
-        ) {
+''') {
     addCommand(AnalyzeCommand());
     addCommand(VersionCommand());
 
