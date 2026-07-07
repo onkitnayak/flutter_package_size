@@ -529,7 +529,7 @@ However, the generated output is primarily intended for Flutter DevTools and isn
 
 ---
 
-## 🚀 First Release (v0.1.0)
+## 🚀 First Release (v1.0.0)
 
 The initial release includes:
 
